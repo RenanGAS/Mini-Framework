@@ -31,7 +31,7 @@ def register(*classes)
     for classe_no_arquivo, index in classes.each_with_index
       tmp_hash = {}
 
-      html = html + "<form>\n<div class=\"form-group\">\n<p>Cadastro de #{classe_no_arquivo.class.name}</p>\n"
+      html = html + "<form method=\"POST\" action=\"http://0.0.0.0:9292/cadastro-#{classe_no_arquivo.class.name}\">\n<div class=\"form-group\">\n<p>Cadastro de #{classe_no_arquivo.class.name}</p>\n"
 
       for variavel_da_classe, i in classe_no_arquivo.instance_variables.each_with_index
         puts "#{index}, #{variavel_da_classe} = #{classe_no_arquivo.instance_variable_get(variavel_da_classe).class}"
@@ -87,36 +87,71 @@ def register(*classes)
     puts  relantionship_with
     puts independent
     puts has_relationship
+
+    # db = SQLite3::Database.open("teste.db")
+    #             db.execute("DROP TABLE if exists Pessoa")
+    #             db.execute("DROP TABLE if exists Carro")
+    # db.execute("CREATE TABLE Pessoa(id INTEGER AUTO_INCREMENT PRIMARY KEY,Nome VARCHAR(50),cpf VARCHAR(50));")
   
-    generatedsql = ""
-    db = SQLite3::Database.new("teste.db")
-    db.execute("DROP TABLE if exists Pessoa")
-    db.execute("DROP TABLE if exists Carro")
+    codigo_app = '''
+    require \'sqlite3\'
+
+    class App
+        def cadastrarCarro()
+            begin
+                db.execute "INSERT INTO Pessoa VALUES(67,'Renan','57127')"
+            rescue SQLite3::Exception => e
+                puts "Exception ocurred"
+                puts e
+            ensure
+                db.close if db
+            end
+        end
+
+        def call(env)
+            headers = {'Content-Type' => 'text/html'}
+
+            return [200, headers, ['favicon']] if env['PATH_INFO'] == '/favicon.ico'
+
+            if env['PATH_INFO'] == '/cadastro-Carro'
+                cadastrarCarro()
+            end
+            
+            file = File.open("index.html")
+            response = [file.read]
+
+            [200, headers, response]
+
+        end
+    end
+
+    '''
+    
     for i in independent
-      generatedsql = "CREATE TABLE #{classes[i].class.name}(id INTEGER AUTO_INCREMENT PRIMARY KEY"
+      codigo_app = "CREATE TABLE #{classes[i].class.name}(id INTEGER AUTO_INCREMENT PRIMARY KEY"
       currentClass = class_description[i]
    
       for key in currentClass.keys
-        generatedsql = generatedsql + ",#{currentClass[key]} VARCHAR(50)"
+        codigo_app = codigo_app + ",#{currentClass[key]} VARCHAR(50)"
       end
-      generatedsql = generatedsql + ");"
-      puts generatedsql
-      db.execute(generatedsql)
+      codigo_app = codigo_app + ");"
+      puts codigo_app
+      db.execute(codigo_app)
     end
   
     for j in has_relationship
-      generatedsql = "CREATE TABLE #{classes[j].class.name}(id INTEGER AUTO_INCREMENT PRIMARY KEY"
+      codigo_app = "CREATE TABLE #{classes[j].class.name}(id INTEGER AUTO_INCREMENT PRIMARY KEY"
       currentClass = class_description[j]
    
       for key in currentClass.keys
-        generatedsql = generatedsql + ",#{currentClass[key]} VARCHAR(50)"
+        codigo_app = codigo_app + ",#{currentClass[key]} VARCHAR(50)"
       end
       puts "j #{j} #{relantionship_with[j]}"
-      generatedsql = generatedsql + ",#{relantionship_with[j]['fieldName']} INTEGER"
-      generatedsql = generatedsql + ",FOREIGN KEY (#{relantionship_with[j]['fieldName']}) REFERENCES #{relantionship_with[j]['relatedClass']}(id)"
-      generatedsql = generatedsql + ");"
-      puts generatedsql
-      db.execute(generatedsql)
+      codigo_app = codigo_app + ",#{relantionship_with[j]['fieldName']} INTEGER"
+      codigo_app = codigo_app + ",FOREIGN KEY (#{relantionship_with[j]['fieldName']}) REFERENCES #{relantionship_with[j]['relatedClass']}(id)"
+      codigo_app = codigo_app + ");"
+      puts codigo_app
+      db.execute(codigo_app)
     end
   
   
