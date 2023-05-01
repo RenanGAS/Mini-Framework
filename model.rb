@@ -1,21 +1,22 @@
 require 'sqlite3'
 
-class ForeignKey
-  attr_accessor :pointTo
-  def initialize(with: '')
-    if with.class.name == "String"
-      raise ArgumentError, "'with argument is required."
+class ForeignKey_Field
+  attr_accessor :with
+  def initialize(with: "None")
+    if with.class.name == "None"
+      raise ArgumentError, "with argument is required."
     end
 
-    @pointTo = with.to_s
+    @with = with.to_s
   end
 end
 
 
 class Text_Field
-  attr_accessor :placeholder, :verbose
-  def initialize(placeholder: '', verbose_name:'')
+  attr_accessor :placeholder, :verbose, :length
+  def initialize(placeholder: '', verbose_name:'', length: 50)
     @placeholder = placeholder
     @verbose = verbose_name
+    @length = length
   end
 end
