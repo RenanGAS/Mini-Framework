@@ -12,15 +12,37 @@ class ForeignKey_Field
 end
 
 class Text_Field
-  attr_accessor :placeholder, :verbose, :length, :type
+  attr_accessor :placeholder, :verbose, :length, :html_type, :sql_type
   def initialize(placeholder: '', verbose_name:'', length: 50, type: 'string')
     @placeholder = placeholder
     @verbose = verbose_name
     @length = length
     if(type.downcase == 'string')
-      @type = "text"
-    else(type.downcase == 'int')
-        @type = "number"
+      @html_type = "text"
+      @sql_type = "VARCHAR"
+    elsif(type.downcase == 'int')
+      @html_type = "number"
+      @sql_type = "INTEGER"
     end
+  end
+end
+
+class Date
+  attr_accessor :verbose, :html_type, :sql_type
+  def initialize(verbose_name:'')
+    @verbose = verbose_name
+    @html_type = "date"
+    @sql_type = "VARCHAR"
+  end
+end
+
+class TextArea
+  attr_accessor :placeholder, :verbose, :length, :html_type, :sql_type
+  def initialize(placeholder: '', verbose_name:'', length: 100, type: 'string')
+    @placeholder = placeholder
+    @verbose = verbose_name
+    @length = length
+    @html_type = "textarea"
+    @sql_type = "VARCHAR"
   end
 end

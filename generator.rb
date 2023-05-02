@@ -29,26 +29,18 @@ def register(*classes)
   </head>
   <body>
   <div class=\"container-fluid ps-2 mt-2 col-10\">
-        <div class=\"row\" style=\"border: 1px solid #ccc; box-shadow: 2px 2px 4px rgba(0,0,0,0.2);\">
+        <div class=\"row\" style=\"border: 1px solid #ccc; box-shadow: 3px 3px 5px rgba(255,0,0,0.2);\">
         <div class=\"col\">
   "
   lsit_page = html
-  html_home = html + "<div class='mb-3'> </div>\n"
-  html_home = html_home + "\n<p style=\"text-align:center;color: red;line-height: 16px;letter-spacing: -4px;\">⢰⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⡆
-  ⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠿⠿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇
-  ⢸⣿⣿⣿⣿⣿⣿⣿⠟⣩⣶⣿⣿⣿⣶⣝⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇
-  ⢸⣿⣿⣿⣿⣿⡿⢡⣾⣿⣿⣿⡿⣿⣿⠟⡈⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢟⣵⣶⣝⡻⣿⣿⣿⣿⡿⣿⣿⣿⣿⣿⣿⡿⠿⠿⠿⣿⣿⣿⣿⣿⡏⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇
-  ⢸⣿⣿⣿⣿⡿⢡⣿⣿⠟⣫⣭⡄⣨⣿⣿⣠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠿⢟⣛⣛⣻⣿⣿⣿⢸⣿⣿⣿⣿⢸⣿⣿⢏⣼⡌⣿⣿⣿⣿⣿⣿⢸⣿⣿⣶⡝⣿⣿⣿⡇⣿⣿⣿⣿⢇⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇
-  ⢸⣿⣿⣿⣿⢡⣿⡟⣡⠾⠛⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⣩⣶⣿⣿⣿⣿⣿⣿⣿⣿⣿⢸⣿⣿⣿⡿⣸⣿⡿⣸⣿⣷⡹⣿⣿⣿⣿⣿⢸⣿⣿⣿⡇⣿⣿⣿⡣⣿⣿⣿⢏⣾⣿⣿⡿⠿⣛⣛⣽⣿⣿⡇
-  ⢸⣿⣿⣿⡇⣾⡟⣰⢣⣾⣿⣿⠿⢃⠹⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢸⣿⣿⡿⣸⣿⣿⢣⣿⣿⣿⡇⣿⣿⣿⣿⣿⢸⣿⣿⣿⡇⣿⣿⣿⣷⢹⡿⣡⣿⣿⣿⢱⣾⣿⣿⣿⣿⣿⣿⡇
-  ⢸⣿⣿⣿⢰⣿⢰⢃⣿⣿⣿⣿⣿⣆⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣭⣝⡻⠿⣿⣿⣿⣿⣿⣯⡩⣬⣭⣭⣵⣿⣿⡏⣾⣿⣿⣿⣇⢻⣿⣿⣿⣿⢸⣏⢩⣵⣶⣿⣿⣿⢃⢏⣼⣿⣿⣿⡏⢾⣿⣿⣿⣿⣿⣿⣿⡇
-  ⢸⣿⣿⡟⣸⡇⡞⣸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣶⣍⢿⣿⣿⣿⡇⣿⣿⣿⣿⣿⣿⢰⣶⣶⣶⣶⣶⡘⣿⣿⣿⣿⢸⣿⣮⡻⣿⣿⣿⣿⢸⡜⣿⣿⣿⣿⣿⣷⣶⣶⣌⢿⣿⣿⣿⡇
-  ⢸⣿⣿⡇⣾⢰⡇⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⢹⣿⣿⡇⣿⣿⣿⣿⣿⡟⣼⣿⣿⣿⣿⣿⣇⠿⣿⣿⣿⢸⣿⣿⡎⣿⣿⣿⡇⣿⣿⣜⢿⣿⣿⣿⣿⣿⣿⢏⣼⣿⣿⣿⡇
-  ⢸⣿⣿⡇⡿⢸⡇⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢸⣿⣿⣿⢸⣿⣿⣿⣿⢱⣿⣿⣿⣿⣿⣿⣿⡇⣿⣿⣿⢸⣿⣿⣿⡸⢿⣿⡇⣿⣿⣿⣷⣾⣿⣿⣫⣭⣭⣼⣿⣿⣿⣿⡇
-  ⢸⣿⣿⣿⣷⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠿⠿⣛⣛⣭⣾⣿⣿⣿⢸⣿⣿⣿⣿⣼⣿⣿⣿⣿⣿⣿⣿⣧⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇
-  ⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣷⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠿⣛⣛⣛⣛⣛⣛⣛⣛⣛⣛⣛⣛⣛⣛⣛⣛⣛⣛⣛⣛⣛⣛⣛⣛⣛⠿⠿⠿⠿⠿⠿⠿⢿⣿⣿⣿⣿⣿⡇
-  ⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣟⣛⣛⣛⣫⣭⣶⣶⣶⣶⣶⣶⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣶⣭⣽⣿⣿⡇
-  ⠸⠟⠿⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠟⠿⠻⠟⠿⠻⠟⠿⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠟⠟⠿⠻⠻⠻⠇</p>"
+  html_home = html + "<div class='mb-3'> </div> <header>
+  <nav class=\"navbar navbar-expand-lg navbar-light\">
+    <div class=\"container-fluid\">
+      <p style=\"font-size: 30px\" class=\"navbar-brand text-danger font-weight-bold display-4\">Sparks Framework</p>
+    </div>
+  </nav>
+</header>
+<div class='mb-3'> </div>\n"
   for classe_no_arquivo, index in classes.each_with_index
     event_listeners = "<script>\n"
     event_listeners_functions = ""
@@ -141,10 +133,31 @@ def register(*classes)
           else
             html_page = html_page + "<p>#{valor.verbose}</p>\n"
           end
-          html_page = html_page + "<input type=\"#{valor.type}\" class=\"form-control\" placeholder=\"#{valor.placeholder}\" name=\"#{tmp_hash[i]}\"><br>\n"
+          html_page = html_page + "<input type=\"#{valor.html_type}\" class=\"form-control\" placeholder=\"#{valor.placeholder}\" name=\"#{tmp_hash[i]}\"><br>\n"
           
       end
 
+      if valor.is_a?(TextArea)
+        tmp_hash[i] = variavel_da_classe.to_s.delete("@")
+        if valor.verbose == ''
+          html_page = html_page + "<p>#{variavel_da_classe.to_s.delete("@").capitalize}</p>\n"
+        else
+          html_page = html_page + "<p>#{valor.verbose}</p>\n"
+        end
+        html_page = html_page + "<textarea class=\"form-control\" name=\"#{tmp_hash[i]}\"></textarea><br>\n"
+        
+    end
+
+      if valor.is_a?(Date)
+        tmp_hash[i] = variavel_da_classe.to_s.delete("@")
+        if valor.verbose == ''
+          html_page = html_page + "<p>#{variavel_da_classe.to_s.delete("@").capitalize}</p>\n"
+        else
+          html_page = html_page + "<p>#{valor.verbose}</p>\n"
+        end
+        html_page = html_page + "<input type=\"#{valor.html_type}\" class=\"form-control\" name=\"#{tmp_hash[i]}\"><br>\n"
+        
+    end
       if valor.is_a?(ForeignKey_Field)
         if !has_relationship.include?(index)
           has_relationship.push(index)
@@ -208,8 +221,14 @@ def register(*classes)
                                         method: 'POST',
                                         body: formData,
                                   })
-                                        .then(response => response.text())
-                                        .then(data => console.log(data))
+                                        .then(response => response.json())
+                                        .then(data => {
+                                          if (data.success) {
+                                                alert(\"Registrado com sucesso.\")
+                                          }else{
+                                                alert(\"Falha ao registrar.\")
+                                          }
+                                    })
                                         .catch(error => console.error(error));
                             });\n
     "
@@ -269,9 +288,22 @@ def register(*classes)
     </style>
   </head>
   <body>
-  <a href='http://#{Host}:9292/home'>
-    <h1>S P A R K S</h1>
-    </a>
+  <a href='http://#{Host}:9292/home' style='text-decoration:none'> <p style='text-align:center;color: red;line-height: 16px;letter-spacing: -4px;'>⢰⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⡆
+  ⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠿⠿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇
+  ⢸⣿⣿⣿⣿⣿⣿⣿⠟⣩⣶⣿⣿⣿⣶⣝⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇
+  ⢸⣿⣿⣿⣿⣿⡿⢡⣾⣿⣿⣿⡿⣿⣿⠟⡈⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢟⣵⣶⣝⡻⣿⣿⣿⣿⡿⣿⣿⣿⣿⣿⣿⡿⠿⠿⠿⣿⣿⣿⣿⣿⡏⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇
+  ⢸⣿⣿⣿⣿⡿⢡⣿⣿⠟⣫⣭⡄⣨⣿⣿⣠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠿⢟⣛⣛⣻⣿⣿⣿⢸⣿⣿⣿⣿⢸⣿⣿⢏⣼⡌⣿⣿⣿⣿⣿⣿⢸⣿⣿⣶⡝⣿⣿⣿⡇⣿⣿⣿⣿⢇⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇
+  ⢸⣿⣿⣿⣿⢡⣿⡟⣡⠾⠛⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⣩⣶⣿⣿⣿⣿⣿⣿⣿⣿⣿⢸⣿⣿⣿⡿⣸⣿⡿⣸⣿⣷⡹⣿⣿⣿⣿⣿⢸⣿⣿⣿⡇⣿⣿⣿⡣⣿⣿⣿⢏⣾⣿⣿⡿⠿⣛⣛⣽⣿⣿⡇
+  ⢸⣿⣿⣿⡇⣾⡟⣰⢣⣾⣿⣿⠿⢃⠹⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢸⣿⣿⡿⣸⣿⣿⢣⣿⣿⣿⡇⣿⣿⣿⣿⣿⢸⣿⣿⣿⡇⣿⣿⣿⣷⢹⡿⣡⣿⣿⣿⢱⣾⣿⣿⣿⣿⣿⣿⡇
+  ⢸⣿⣿⣿⢰⣿⢰⢃⣿⣿⣿⣿⣿⣆⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣭⣝⡻⠿⣿⣿⣿⣿⣿⣯⡩⣬⣭⣭⣵⣿⣿⡏⣾⣿⣿⣿⣇⢻⣿⣿⣿⣿⢸⣏⢩⣵⣶⣿⣿⣿⢃⢏⣼⣿⣿⣿⡏⢾⣿⣿⣿⣿⣿⣿⣿⡇
+  ⢸⣿⣿⡟⣸⡇⡞⣸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣶⣍⢿⣿⣿⣿⡇⣿⣿⣿⣿⣿⣿⢰⣶⣶⣶⣶⣶⡘⣿⣿⣿⣿⢸⣿⣮⡻⣿⣿⣿⣿⢸⡜⣿⣿⣿⣿⣿⣷⣶⣶⣌⢿⣿⣿⣿⡇
+  ⢸⣿⣿⡇⣾⢰⡇⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⢹⣿⣿⡇⣿⣿⣿⣿⣿⡟⣼⣿⣿⣿⣿⣿⣇⠿⣿⣿⣿⢸⣿⣿⡎⣿⣿⣿⡇⣿⣿⣜⢿⣿⣿⣿⣿⣿⣿⢏⣼⣿⣿⣿⡇
+  ⢸⣿⣿⡇⡿⢸⡇⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢸⣿⣿⣿⢸⣿⣿⣿⣿⢱⣿⣿⣿⣿⣿⣿⣿⡇⣿⣿⣿⢸⣿⣿⣿⡸⢿⣿⡇⣿⣿⣿⣷⣾⣿⣿⣫⣭⣭⣼⣿⣿⣿⣿⡇
+  ⢸⣿⣿⣿⣷⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠿⠿⣛⣛⣭⣾⣿⣿⣿⢸⣿⣿⣿⣿⣼⣿⣿⣿⣿⣿⣿⣿⣧⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇
+  ⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣷⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠿⣛⣛⣛⣛⣛⣛⣛⣛⣛⣛⣛⣛⣛⣛⣛⣛⣛⣛⣛⣛⣛⣛⣛⣛⣛⠿⠿⠿⠿⠿⠿⠿⢿⣿⣿⣿⣿⣿⡇
+  ⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣟⣛⣛⣛⣫⣭⣶⣶⣶⣶⣶⣶⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣶⣭⣽⣿⣿⡇
+  ⠸⠟⠿⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠟⠿⠻⠟⠿⠻⠟⠿⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠻⠟⠟⠿⠻⠻⠻⠇
+  </p></a>
   </body>
   </html>
   
@@ -326,7 +358,19 @@ class App
       if valor.is_a?(Text_Field)
         tmp_hash[i] = variavel_da_classe.to_s.delete("@")
         criar_tabelas = criar_tabelas + """
-      #{tmp_hash[i]} VARCHAR(#{valor.length}),"""
+        #{tmp_hash[i]} #{valor.sql_type} #{+ valor.sql_type == "INTEGER" ? "": "(#{valor.length})"} ,"""
+      end
+
+      if valor.is_a?(Date)
+        tmp_hash[i] = variavel_da_classe.to_s.delete("@")
+        criar_tabelas = criar_tabelas + """
+      #{tmp_hash[i]} #{valor.sql_type},"""
+      end
+
+      if valor.is_a?(TextArea)
+        tmp_hash[i] = variavel_da_classe.to_s.delete("@")
+        criar_tabelas = criar_tabelas + """
+      #{tmp_hash[i]} #{valor.sql_type}(#{valor.length}),"""
       end
 
       if valor.is_a?(ForeignKey_Field)
@@ -391,8 +435,7 @@ class App
       [200, headers, response]
     else
       db = SQLite3::Database.open('miniDB.db')
-    """ + 
-    resetar_tabelas + criar_tabelas +
+    """ + criar_tabelas +
     """
       file = File.open('welcome.html')
       response = [file.read]

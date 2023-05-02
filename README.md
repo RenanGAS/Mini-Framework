@@ -1,11 +1,15 @@
-# Mini-Framework
+# Mini Framework
 
-![Alt text](./sparkbanner.png?raw=true "Title")
+![alt text](sparkbanner.png)
+
+Alunos: Christofer Daniel Rodrigues Santos, Guilherme Augusto Rodrigues Maturana, Renan Guensuke Aoki Sakashita
 
 Para executar:
 
-- Em `generator.rb`, determinar o endereço `Host`
-- Instalar ruby e sqlite3
+- Instalar Ruby e Sqlite3
+- Configurar endereço de host em `generator.rb` e `Makefile`
 - `sudo gem install bundler`
 - `sudo bundle install`
-- `puma`
+- `make`
+- `make start`
+

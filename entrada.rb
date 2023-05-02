@@ -5,6 +5,8 @@ class Pessoa
     def initialize
       @nome = Text_Field.new(:placeholder => "Nome", :verbose_name => "Nome", :length => 50)
       @cpf = Text_Field.new(:placeholder => "CPF", :verbose_name => "cpf", :length => 50)
+      @data_nasc = Date.new(:verbose_name => "Data de Nascimento")
+      @sobre = TextArea.new(:verbose_name => "Sobre", :length => 150)
     end
 end
 
