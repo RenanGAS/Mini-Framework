@@ -4,6 +4,7 @@
 
 Para executar:
 
+- Em `generator.rb`, determinar o endereço `Host`
 - Instalar ruby e sqlite3
 - `sudo gem install bundler`
 - `sudo bundle install`
