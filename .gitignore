@@ -1,1 +1,5 @@
 Gemfile.lock
+app_generated.rb
+config.ru
+*.html
+*.db
