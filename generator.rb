@@ -407,8 +407,7 @@ class App
       [200, headers, response]
     else
       db = SQLite3::Database.open('miniDB.db')
-    """ + 
-    resetar_tabelas + criar_tabelas +
+    """ + criar_tabelas +
     """
       file = File.open('welcome.html')
       response = [file.read]
