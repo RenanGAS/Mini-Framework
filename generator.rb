@@ -330,7 +330,7 @@ class App
       if valor.is_a?(Text_Field)
         tmp_hash[i] = variavel_da_classe.to_s.delete("@")
         criar_tabelas = criar_tabelas + """
-      #{tmp_hash[i]} #{valor.sql_type}(#{valor.length}),"""
+        #{tmp_hash[i]} #{valor.sql_type} #{+ valor.sql_type == "INTEGER" ? "": "(#{valor.length})"} ,"""
       end
 
       if valor.is_a?(Date)
