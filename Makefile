@@ -3,4 +3,8 @@ all:
 	puma
 
 clear:
-	rm app_generated.rb config.ru index_generated.html miniDB.db
+	rm app_generated.rb config.ru miniDB.db
+	rm home.html
+	find -type f -name 'listar*' -delete
+	find -type f -name 'register*' -delete
+	rm welcome.html
