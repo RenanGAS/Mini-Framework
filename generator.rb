@@ -1,20 +1,27 @@
 require_relative 'model'
 
+#Host = 'localhost'
+Host = '0.0.0.0'
+
 def register(*classes)
   independent = []
   has_relationship = []
   relantionship_with = {}
   class_description = {}
+  rotas = ""
 
   event_listeners = "<script>\n"
   event_listeners_functions = ""
-
+  list_page = ""
+  html_page = ""
+  html_home = ""
   html = "<!DOCTYPE html>
   <html lang=\"en\">
   <head>
       <meta charset=\"UTF-8\">
       <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">
       <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
+      <!--https://www.youtube.com/watch?v=qObzgUfCl28&t=51s-->
       <link rel=\"icon\" type=\"image/x-icon\" href=\"https://www.ruby-lang.org/favicon.ico\">
       <title>Ruby, Ruby, Ruby, Ruby!</title>
       <link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css\"
@@ -25,35 +32,136 @@ def register(*classes)
         <div class=\"row\" style=\"border: 1px solid #ccc; box-shadow: 2px 2px 4px rgba(0,0,0,0.2);\">
         <div class=\"col\">
   "
+  lsit_page = html
+  html_home = html + "<div class='mb-3'> </div>\n"
   for classe_no_arquivo, index in classes.each_with_index
+    event_listeners = "<script>\n"
+    event_listeners_functions = ""
+    list_page = html
+
+    list_page = list_page + "<a href=\"http://#{Host}:9292/home\" class=\"btn btn-link p-1 mb-2\">&lt;- Voltar</a>" +"
+    <h1>Lista de #{classe_no_arquivo.class.name.downcase}</h1>
+    <div id=\"lista-#{classe_no_arquivo.class.name.downcase}\"></div>
+    <script>
+    async function getData() {
+  try {
+    await new Promise((r) => setTimeout(r, 500));
+    const response = await fetch(\"http://#{Host}:9292/listar-#{classe_no_arquivo.class.name.downcase}s\", {
+      method:\"GET\",
+    });
+    const json_data = await response.json();
+    const results = json_data;
+    const listaResult = document.getElementById(\"lista-#{classe_no_arquivo.class.name.downcase}\");
+    const columns = Object.keys(results[0]);
+
+    colunas = columns.map((column) => \"<th>\" + column + \"</th>\").join('')
+    let tableHtml = \"<table class='table'><thead><tr>\" + colunas + \"</tr></thead><tbody>\";
+
+    results.forEach(function (result) {
+      tableHtml += \"<tr>\";
+      columns.forEach(function (column) {
+        tableHtml += \"<td>\" + result[column] + \"</td>\";
+      });
+      tableHtml += \"</tr>\";
+    });
+
+    tableHtml += \"</tbody></table>\";
+    listaResult.innerHTML = tableHtml;
+  } catch (error) {
+    console.error(\"Error:\", error);
+  }
+}
+
+    getData()
+  </script>
+  </body>
+  </html>
+    "
+    html_page = html + "<a href=\"http://#{Host}:9292/home\" class=\"btn btn-link p-1 mb-2\">&lt;- Voltar</a>"
+    html_home = html_home + "<div class='row'>\n"
+    html_home = html_home + "<div class=\"col\">\n<p class=\"border p-2\"><a href='/register-#{classe_no_arquivo.class.name.downcase}'><i style='color:green; font-size: 1.5em;'><strong>&plus;</strong></i> Cadastrar #{classe_no_arquivo.class.name.downcase}</a></p>\n</div>\n"
+    html_home = html_home + "<div class=\"col\">\n<p class=\"border p-2\"><a href='/listar-#{classe_no_arquivo.class.name.downcase}s-page'><i style='color:green; font-size: 1.5em;'><strong>&Xi;</strong></i> Listar #{classe_no_arquivo.class.name.downcase}</a></p>\n</div>\n"
+    html_home = html_home + "</div>\n"
+  # when '/criar-tabelas'
+  #   criarTabelas
+  # when '/resetar-tabelas'
+  rotas = rotas + """
+    when '/register-#{classe_no_arquivo.class.name.downcase}'
+      file = File.open('register-#{classe_no_arquivo.class.name.downcase}.html')
+      response = [file.read]
+      [200, headers, response]
+    when '/listar-#{classe_no_arquivo.class.name.downcase}s-page'
+      file = File.open('listar-#{classe_no_arquivo.class.name.downcase}s.html')
+      response = [file.read]
+      [200, headers, response]
+    """
     tmp_hash = {}
 
-    html = html + "<form id=#{classe_no_arquivo.class.name.downcase}-form>\n
+    html_page = html_page + "<form id=#{classe_no_arquivo.class.name.downcase}-form>\n
     <div class=\"form-group\">\n<p>Cadastro de #{classe_no_arquivo.class.name}</p>\n"
-
+    
     for variavel_da_classe, i in classe_no_arquivo.instance_variables.each_with_index
-      puts "#{index}, #{variavel_da_classe} = #{classe_no_arquivo.instance_variable_get(variavel_da_classe).class}"
       
       valor = classe_no_arquivo.instance_variable_get(variavel_da_classe)
-
-      puts "valor: #{valor}\n"
     
       if valor.is_a?(Text_Field)
-          puts "Verbose: #{valor.verbose}"
           tmp_hash[i] = variavel_da_classe.to_s.delete("@")
           if valor.verbose == ''
-            html = html + "<p>#{variavel_da_classe.to_s.delete("@").capitalize}</p>\n"
+            html_page = html_page + "<p>#{variavel_da_classe.to_s.delete("@").capitalize}</p>\n"
           else
-            html = html + "<p>#{valor.verbose}</p>\n"
+            html_page = html_page + "<p>#{valor.verbose}</p>\n"
           end
-          html = html + "<input type=\"text\" class=\"form-control\" placeholder=\"#{valor.placeholder}\" name=\"#{tmp_hash[i]}\"><br>\n"
+          html_page = html_page + "<input type=\"#{valor.type}\" class=\"form-control\" placeholder=\"#{valor.placeholder}\" name=\"#{tmp_hash[i]}\"><br>\n"
+          
       end
 
       if valor.is_a?(ForeignKey_Field)
-        puts "Valor #{valor}"
         if !has_relationship.include?(index)
           has_relationship.push(index)
+          html_page = html_page + "<p>#{variavel_da_classe.to_s.delete("@").capitalize}</p>\n"
+          html_page = html_page + "<select name=\"#{variavel_da_classe.to_s.delete("@")}\" id=\"#{classe_no_arquivo.class.name}#{variavel_da_classe.to_s.delete("@").capitalize}s\" required aria-invalid=\"false\">\n"
+          html_page = html_page + "<option value=\"\" selected disabled>Select an option</option>\n</select>\n"
           relantionship_with[index] = {'fieldName' => variavel_da_classe.to_s.delete('@'), 'relatedClass' => valor.with}
+          
+
+          event_listeners_functions = event_listeners_functions + "async function get#{variavel_da_classe.to_s.delete("@").capitalize}s() {
+            try {
+              await new Promise(r => setTimeout(r, 500));
+                const response = await fetch('http://#{Host}:9292/listar-#{variavel_da_classe.to_s.delete("@")}s', {
+                    method: 'GET',
+              })
+                const json_data = await response.json();
+                console.log('Success:', json_data);
+        
+                return json_data;
+            }
+            catch (error) {
+                console.error('Error:', error);
+            }
+        
+        }\n"
+
+
+          event_listeners_functions = event_listeners_functions +
+          "async function addToDropdown#{classe_no_arquivo.class.name}#{variavel_da_classe.to_s.delete("@").capitalize}s(){
+            var select = document.getElementById('#{classe_no_arquivo.class.name}#{variavel_da_classe.to_s.delete("@").capitalize}s');
+            var json = await get#{variavel_da_classe.to_s.delete("@").capitalize}s();
+            const reference_field = '#{valor.reference_field}'
+            for (i = 0; i < json.length; i++) {
+              nome = json[i][reference_field]
+              select.options[select.options.length] = new Option(nome , json[i].id);
+            };
+            $(\"##{classe_no_arquivo.class.name}#{variavel_da_classe.to_s.delete("@").capitalize}s\")[0].selectedIndex = 0;
+        }\n"
+
+         
+          event_listeners_functions = event_listeners_functions +"window.addEventListener('load', function() {
+            addToDropdown#{classe_no_arquivo.class.name}#{variavel_da_classe.to_s.delete("@").capitalize}s();
+          });\n"
+          
+          # adicionar uma função nos scripts pra pegar os dados e colocar no dropdown
+          # chamar ela on load e na função acima
+
         end
       end
     end
@@ -66,7 +174,7 @@ def register(*classes)
     #{classe_no_arquivo.class.name.downcase}Form.addEventListener('submit', (event) => {
                                   event.preventDefault();
                                   const formData = new FormData(#{classe_no_arquivo.class.name.downcase}Form);
-                                  fetch('http://0.0.0.0:9292/cadastro-#{classe_no_arquivo.class.name.downcase}', {
+                                  fetch('http://#{Host}:9292/cadastro-#{classe_no_arquivo.class.name.downcase}', {
                                         method: 'POST',
                                         body: formData,
                                   })
@@ -75,20 +183,11 @@ def register(*classes)
                                         .catch(error => console.error(error));
                             });\n
     "
-    #puts event_listeners
-    html = html + "<input type=\"submit\" class=\"btn btn-primary\" value=\"Salvar\"><br>\n"
-    html = html + "</div>\n</form>\n"
-    html = html + "<hr>\n"
-  end
-    html = html + "
-    <hr>
-    <form action='http://0.0.0.0:9292/criar-tabelas' method='post'>
-          <input type='submit' class=\"btn btn-primary\" name='criar' value='Criar tabelas' />
-    </form>
-    <form action='http://0.0.0.0:9292/resetar-tabelas' method='post'>
-          <input type='submit' class=\"btn btn-primary\" name='Deletar' value='Deletar tabelas' />
-    </form>
-    <hr>
+    html_page = html_page + "<input type=\"submit\" class=\"btn btn-success\" value=\"Salvar\"><br>\n"
+    html_page = html_page + "</div>\n</form>\n"
+    html_page = html_page + "<hr>\n"
+
+    html_page = html_page + "
     </div>
     </div>
     </div>
@@ -105,19 +204,62 @@ def register(*classes)
     </body>
     </html>"
 
+    File.open("register-#{classe_no_arquivo.class.name.downcase}.html", "w") do |file|
+      file.write(html_page)
+    end 
+    File.open("listar-#{classe_no_arquivo.class.name.downcase}s.html", "w") do |file|
+      file.write(list_page)
+    end 
+  end
+  html_home = html_home +"\n </div>\n </div>\n </div>\n </body>\n </html>"
+  File.open("home.html", "w") do |file|
+    file.write(html_home)
+  end  
 
-  criar_tabelas = """
+  html_welcome = """
+  <!DOCTYPE html>
+  <html>
+  <head>
+    <title>Ruby, Ruby, Ruby, Ruby!</title>
+    <style>
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+      }
+      
+      h1 {
+        font-size: 10rem;
+      }
+      h2 {
+        font-size: 8rem;
+      }
+    </style>
+  </head>
+  <body>
+  <a href='http://0.0.0.0:9292/home'>
+    <h1>S P A R K S</h1>
+    </a>
+  </body>
+  </html>
+  
+  """
+  File.open("welcome.html", "w") do |file|
+    file.write(html_welcome)
+  end  
+
+   
+  inicio_app = """
 require 'sqlite3'
 require 'json'
 require 'rack/request'
 
 class App
-  def criarTabelas
-    db = SQLite3::Database.open('miniDB.db')
           """
-  resetar_tabelas = """
-  def resetarTabelas
-    db = SQLite3::Database.open('miniDB.db')"""
+  criar_tabelas = ""
+  resetar_tabelas = ""
   cadastrar_classe = ""
   listar_classe = ""
   app_call = """
@@ -131,7 +273,7 @@ class App
     tmp_hash = {}
     criar_tabelas = criar_tabelas + """
     db.execute('''
-    CREATE TABLE #{classe_no_arquivo.class.name}(
+    CREATE TABLE if not exists #{classe_no_arquivo.class.name}(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
     """
     resetar_tabelas = resetar_tabelas + """
@@ -160,8 +302,8 @@ class App
       if valor.is_a?(ForeignKey_Field)
         tmp_hash[i] = variavel_da_classe.to_s.delete("@")
         criar_tabelas = criar_tabelas + """
-      fk_id_#{tmp_hash[i]} INT,
-      FOREIGN KEY(fk_id_#{tmp_hash[i]}) REFERENCES #{valor.with.to_s}(id),"""
+      #{tmp_hash[i]} INTEGER,
+      FOREIGN KEY(#{tmp_hash[i]}) REFERENCES #{valor.with.to_s}(id),"""
       end
 
       atributos_classe.push(tmp_hash[i])
@@ -212,21 +354,17 @@ class App
   """
   end
 
-  criar_tabelas = criar_tabelas + """
-    [200, {'Content-Type' => 'application/json'}, [{success: true}.to_json]]
-  end
-  """
-  resetar_tabelas = resetar_tabelas + """
-    [200, {'Content-Type' => 'application/json'}, [{success: true}.to_json]]
-  end
-  """
-  app_call = app_call + """
-    when '/criar-tabelas'
-      criarTabelas
-    when '/resetar-tabelas'
-      resetarTabelas
+  app_call = app_call + rotas + """
+    when '/home'
+      file = File.open('home.html')
+      response = [file.read]
+      [200, headers, response]
     else
-      file = File.open('index_generated.html')
+      db = SQLite3::Database.open('miniDB.db')
+    """ + 
+    resetar_tabelas + criar_tabelas +
+    """
+      file = File.open('welcome.html')
       response = [file.read]
       [200, headers, response]
     end
@@ -234,14 +372,13 @@ class App
 end
 """
 
-  codigo_app = criar_tabelas + resetar_tabelas + cadastrar_classe + listar_classe + app_call
+  codigo_app = inicio_app + cadastrar_classe + listar_classe + app_call
   
   db = SQLite3::Database.new("miniDB.db")
 
-  File.open("index_generated.html", "w") do |file|
-    file.write(html)
-  end
-
+  # Aqui se criaria as tabelas
+  # ou mais cedo caso fosse criar sem ler do arquivo
+  # e por que que o método não tem um if not exists?
   File.open("app_generated.rb", "w") do |file|
     file.write(codigo_app)
   end  
