@@ -1,11 +1,6 @@
-# Mini-Framework
+Trabalho de Linguagens de Programação
 
-![Alt text](./sparkbanner.png?raw=true "Title")
+Alunos: Christofer Daniel Rodrigues Santos, Guilherme Augusto Rodrigues Maturana, Renan Guensuke Aoki Sakashita
 
-Para executar:
+Repositório: https://github.com/RenanGAS/Mini-Framework
 
-- Em `generator.rb`, determinar o endereço `Host`
-- Instalar ruby e sqlite3
-- `sudo gem install bundler`
-- `sudo bundle install`
-- `puma`
